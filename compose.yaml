@@ -1,0 +1,25 @@
+# Paths and the lsio network follow the linuxserver.io SWAG + CrowdSec guide.
+# Adjust them if your installation differs.
+services:
+  crowdsec-snitch:
+    build: .
+    container_name: crowdsec-snitch
+    env_file: .env
+    # Must be able to read the SWAG logs (PUID/PGID of SWAG) and write /data.
+    user: "1000:1000"
+    volumes:
+      - /opt/appdata/swag/log/nginx:/logs/nginx:ro
+      - /opt/appdata/crowdsec-snitch:/data
+    networks:
+      - lsio
+    # No published ports: only containers on the lsio network can reach it.
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges=true
+    restart: unless-stopped
+
+networks:
+  lsio:
+    external: true

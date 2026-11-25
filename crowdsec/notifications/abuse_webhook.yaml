@@ -1,0 +1,14 @@
+# Copy to the CrowdSec config directory, for example
+# /opt/appdata/crowdsec/config/notifications/abuse_webhook.yaml
+type: http
+name: abuse_webhook
+log_level: info
+format: |
+  {{.|toJson}}
+url: http://crowdsec-snitch:8080/alert
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: Bearer REPLACE_WITH_SNITCH_TOKEN
+max_retry: 3
+timeout: 10s

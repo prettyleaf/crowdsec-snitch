@@ -1,0 +1,23 @@
+[project]
+name = "crowdsec-snitch"
+version = "0.1.0"
+description = "Turns CrowdSec bans into abuse reports for the attacker's hosting provider"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["dnspython==2.8.0"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+snitch = "snitch.__main__:main"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["snitch"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
